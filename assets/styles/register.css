@@ -1,0 +1,19 @@
+.login__box {
+    width: 780px;
+    height: 760px;
+    box-shadow: 3px 3px 20px rgb(0 0 0 / 10%);
+}
+
+.login .login__box form .form__group {
+    margin-bottom: 20px;
+}
+
+.login .login__box form .form__group textarea {
+    width: 100%;
+    height: 70px;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #acacac;
+    font-size: 14px;
+    transition: all .15s linear;
+}

@@ -1,0 +1,411 @@
+/** Menu */
+
+.menu {
+    padding: 30px 30px !important;
+    box-shadow: 2px 0px 50px 0px rgba(0, 0, 0, .05);
+    min-height: 100vh;
+}
+
+.menu .menu__list {
+    padding: 0;
+    margin-top: 40px;
+}
+
+.menu .menu__list li {
+    margin: 14px 0;
+    height: 50px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all .1s linear;
+}
+
+.menu .menu__list li:hover a {
+    color: var(--color-primary);
+}
+
+.menu .menu__list li.menu__list--active {
+    background-color: var( --color-primary-light-1);
+}
+
+.menu .menu__list li.menu__list--active a {
+    color: var(--color-primary) !important;
+}
+
+.menu .menu__list li a {
+    text-decoration: none;
+    color: var(--color-admin-text-light);
+    font-size: 14px;
+    font-weight: 600;
+    vertical-align: middle;
+    display: inline-block;
+    transition: all .1s linear;
+    letter-spacing: .5px;
+    pointer-events: none;
+}
+
+.menu .menu__list li a i {
+    font-size: 17px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 5px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.menu .menu__list li.menu__list--active a i {
+    background-color: var(--color-primary);
+    color: #fff;
+    box-shadow: 0px 3px 10px rgba(98, 126, 21, 0.7);
+}
+
+/** Content Header */
+
+.content {
+    padding: 0 !important;
+}
+
+.content .content__header {
+    padding: 25px 50px;
+    border-bottom: 1px solid #ededed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content .content__header-navbar {
+    display: flex;
+    align-items: center;
+}
+
+.content .content__header-navbar .navbar__icon {
+    font-size: 20px;
+    color: var(--color-admin-text-dark);
+    margin-right: 50px;
+    cursor: pointer;
+}
+
+.navbar__form {
+    width: 320px;
+    height: 42px;
+    position: relative;
+}
+
+.navbar__form input {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    position: absolute;
+    border: 1px solid #ededed;
+    outline: none;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+.navbar__form input::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--color-admin-text-light);
+    letter-spacing: .5px;
+    /* Firefox */
+}
+
+.navbar__form input:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: var(--color-admin-text-light);
+    letter-spacing: .5px;
+}
+
+.navbar__form input::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: var(--color-admin-text-light);
+    letter-spacing: .5px;
+}
+
+.navbar__form button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
+    font-size: 18px;
+    color: var(--color-admin-text-light);
+}
+
+.content .content__header-control {
+    display: flex;
+    align-items: center;
+}
+
+.content .content__header-control .control__group {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-right: 40px;
+    border-right: 1px solid #dfdfdf;
+}
+
+.content .content__header-control .control__group div {
+    font-size: 16px;
+    color: #545454;
+    position: relative;
+    cursor: pointer;
+}
+
+.content .content__header-control .control__group div.control__group-notify {
+    margin-right: 40px;
+}
+
+.content .content__header-control .control__group div span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    height: 20px;
+    width: 20px;
+    background-color: var(--color-primary);
+    color: #fff;
+    font-size: 10px;
+    border-radius: 50%;
+}
+
+.content .content__header-control .control__info {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.content .content__header-control .control__info .control__info-img {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid var(--color-primary);
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 40px;
+}
+
+.content .content__header-control .control__info .control__info-img img {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.content .content__header-control .control__info .control__info-exit {
+    font-size: 12px;
+    color: var(--color-admin-text-dark);
+    background-color: var(--color-primary-light);
+    cursor: pointer;
+    padding: 10px 40px;
+    border-radius: 20px;
+    font-weight: 600;
+    display: block;
+    color: var(--color-admin-text-dark);
+    text-decoration: none;
+}
+
+.content .content__body .content__body-box {
+    height: 0;
+    opacity: 0;
+}
+
+.content .content__body .content__body-box.content__body-box--active {
+    animation: fadeIn .2s linear forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        height: 0;
+        opacity: 0.5;
+    }
+    100% {
+        height: auto;
+        opacity: 1;
+    }
+}
+
+.content .content__body {
+    padding: 40px;
+    background-color: #fbfbfb;
+    min-height: 100vh;
+}
+
+.content .content__body .content__body-order h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 35px;
+}
+
+.content .order__table {
+    border: 1px solid #f1f1f1;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px -12px rgb(0 0 0 / 50%);
+}
+
+.content .order__table table {
+    width: 100%;
+}
+
+.content .order__table table thead th {
+    font-weight: 600;
+    font-size: 14px;
+    padding: 20px 0;
+    border-bottom: 2px solid #efefef;
+}
+
+.content .order__table table tbody td {
+    font-weight: 400;
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+.content .order__table table tbody tr:not(:last-child) {
+    border-bottom: 2px solid #efefef;
+}
+
+.content .order__table .order__tabel-id {
+    padding-left: 25px
+}
+
+.content .order__table .order__tabel-date {
+    width: 200px;
+}
+
+.content .order__table .order__tabel-date p {
+    width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.content .order__table .order__tabel-name {
+    width: 200px;
+}
+
+.content .order__table .order__tabel-name p {
+    width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.content .order__table .order__tabel-location p {
+    width: 250px;
+}
+
+.content .order__table .order__tabel-location p {
+    width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.content .order__table .order__tabel-status a.status__buton {
+    border: none;
+    outline: none;
+    width: 90px;
+    height: 38px;
+    padding: 0 4px;
+    line-height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 20px;
+    user-select: none;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.content .order__table .order__tabel-status a.status__buton.status--pending {
+    background-color: #fef3f1;
+    color: #fd683e;
+}
+
+.content .order__table .order__tabel-status a.status__buton.status--delivery {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.content .order__table .order__tabel-status a.status__buton.status--cancel {
+    background-color: #f1f1f1;
+    color: #000;
+}
+
+.content .order__table .order__tabel-edit {
+    padding-right: 25px;
+}
+
+.content .order__table .order__tabel-status {
+    position: relative;
+}
+
+.content .order__table table .status__control {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0px 5px 20px -12px rgb(0 0 0 / 50%);
+    border-radius: 10px;
+    z-index: 2;
+    top: 30%;
+    left: 0;
+    overflow: hidden;
+    transition: all .1s linear;
+}
+
+.content .order__table table .status__control a.status__control-item {
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 15px;
+    user-select: none;
+    display: block;
+    text-decoration: none;
+    color: #292929;
+}
+
+.content .order__table table .status__control a.status__control-item:hover {
+    background-color: #fffbfb;
+}
+
+.content .order__table table .status__control a.status__control-item img {
+    height: 14px;
+    width: 14px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.status__control-close {
+    font-size: 16px;
+    padding: 5px 0;
+    width: 100%;
+    cursor: pointer;
+    user-select: none;
+}
+
+.status__control-close:hover {
+    background-color: var(--color-primary-light);
+}
+
+.customer__table table tr td p{
+    margin-bottom: 0;
+}

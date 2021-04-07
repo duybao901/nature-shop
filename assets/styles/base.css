@@ -1,0 +1,175 @@
+:root {
+    --color-primary: #78a206;
+    /* rgb(128,168,22) */
+    --color-bg: #f6f5f1;
+    --color-primary-light: rgba(189, 243, 39, 0.2);
+    --color-primary-light-1: rgba(189, 243, 39, 0.3);
+    --color-admin-text-light: #a7a7a7;
+    --color-admin-text-dark: #2c2c2c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: auto;
+    width: 100%;
+    overflow-x: hidden;
+    background-color: #f1f1f1;
+    font-family: "Poppins", sans-serif !important;
+    z-index: 1;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 62.5%;
+}
+
+ul {
+    padding: 0;
+}
+
+ul li {
+    list-style: none;
+}
+
+
+.scroll-top-btn {
+    position: fixed;
+    bottom: 40px;
+    right: 30px;
+    background: #292929;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    z-index: 9999;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all .1s linear;
+    opacity: 0;
+}
+
+.scroll-top-btn:hover {
+    color: #fff;
+    box-shadow: 0 10px 35px -7px rgb(120 162 6 / 80%);
+    bottom: 45px;
+}
+
+.scroll-top-btn.active {
+    opacity: 1;
+}
+
+.container {
+    max-width: 1200px !important;
+}
+
+.slick-slide {
+    outline: none;
+}
+
+a:focus {
+    outline: none;
+}
+
+.my-btn-primary {
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 12px;
+    background-color: var(--color-primary);
+    outline: none;
+    border: none;
+    border-radius: 30px;
+    letter-spacing: 1px;
+    width: 120px;
+    height: 45px;
+    font-family: "Oswald", sans-serif;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+}
+
+.my-btn-primary:hover {
+    color: #ffff;
+}
+
+.my-btn-primary.my-btn-primary--1 {
+    background-color: #292929;
+    border: 2px solid #fff;
+    transition: all .2s ease-in-out;
+}
+
+.my-btn-primary.my-btn-primary--1:hover {
+    background-color: var(--color-primary);
+}
+
+.my-btn-primary.my-btn-primary--2 {
+    background-color: #fff;
+    color: #292929;
+    border: 2px solid #292929;
+    transition: all .2s ease-in-out;
+}
+
+.my-btn-primary.my-btn-primary--2:hover {
+    background-color: var(--color-primary);
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+.my-btn-primary.my-btn-primary--3 {
+    transition: all .15s linear;
+}
+
+.my-btn-primary.my-btn-primary--3:hover {
+    background-color: #292929;
+    color: #fff;
+}
+
+.my-btn-ver2 {
+    border: none;
+    outline: none;
+    box-shadow: 1px 1px 0 0 #ffffff inset, 1px 1px 0 0 #ffffff;
+    color: #b1b1b1;
+    font-size: 24px;
+    height: 72px;
+    line-height: 68px;
+    width: 72px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 2px solid #e1e1e1;
+    transition: all .2s ease-in-out;
+}
+
+.my-btn-ver2:hover {
+    box-shadow: 2px 5px 32px -3px rgb(0, 0, 0, .2);
+    color: #444444;
+    border: 2px solid #fff;
+    background-color: var(--color-bg);
+}
+
+.my-btn-ver2.my-btn-ver2--1 {
+    height: 45px;
+    width: 45px;
+    background-color: #fff;
+    border: 1px solid #e1e1e1;
+    line-height: 45px;
+    font-size: 14px;
+}
+
+.my-btn-ver2.my-btn-ver2--1:hover {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+/* Slick config */
