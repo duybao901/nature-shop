@@ -41,7 +41,7 @@ if (isset($trangthai) and isset($sodondh)) {
                         <img src="assets/img/logo.png" alt="">
                     </div>
                     <ul class="menu__list">
-                        <li class='menu__list--active' onclick="openTab(event,'dashboard')">
+                        <li class='menu__list--active' onclick="openTab(event,'dashboard')" id='tabDefaultOpen'>
                             <a>
                                 <i class="fas fa-tachometer-alt"></i> Bảng Điều Khiển
                             </a>
@@ -51,7 +51,7 @@ if (isset($trangthai) and isset($sodondh)) {
                                 <i class="fas fa-clipboard-list"></i> Đơn Hàng
                             </a>
                         </li>
-                        <li onclick="openTab(event,'customer') " id='tabDefaultOpen'>
+                        <li onclick="openTab(event,'customer') ">
                             <a>
                                 <i class="fas fa-users"></i> Khách Hàng
                             </a>
@@ -93,7 +93,44 @@ if (isset($trangthai) and isset($sodondh)) {
                 </div>
                 <div class="content__body">
                     <div class="content__body-box content__body-dashboard" id='dashboard'>
-                        <h1>Dashboard Page 🚀</h1>
+                        <h1 class="order__title">Danh Sách Khách hàng</h1>
+                        <div class="customer__table order__table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="order__tabel-id" style="width: 160px;">MSKH</th>
+                                        <th class="order__tabel-name" style="width: 200px;">Tên Khách Hàng</th>
+                                        <th class="order__tabel-company" style="width: 200px;">Tên Công Ty</th>
+                                        <th class="order__tabel-address" style="width: 380px;">Đia Chỉ</th>
+                                        <th>Tổng chi</th>
+                                        <th class="order__tabel-edit" style="width: 100px;text-align: center;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td class="order__tabel-id">
+                                            <p style="margin-bottom: 0;">a</p>
+                                        </td>
+                                        <td class="order__tabel-name">
+                                            <p>b</p>
+                                        </td>
+                                        <td class="order__tabel-company">
+                                            <p>c</p>
+                                        </td>
+                                        <td class="order__tabel-address">
+                                            <p>d</p>
+                                        </td>
+                                        <td class="order__tabel-amount">
+                                            <p>eđ</p>
+                                        </td>
+                                        <td class="order__tabel-edit" style="width: 100px;text-align: center;">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="content__body-box content__body-order" id='order'>
                         <h1 class="order__title">Danh Sách Các Đơn Hàng</h1>
@@ -118,7 +155,7 @@ if (isset($trangthai) and isset($sodondh)) {
                                             WHERE a.SoDonDH = b.SoDonDH
                                             GROUP BY a.SoDonDH ORDER BY b.NgayDH DESC";
                                     $query = mysqli_query($conn, $sql);
-                                    while ($chitietdonhang = mysqli_fetch_array($query)) {                                      
+                                    while ($chitietdonhang = mysqli_fetch_array($query)) {
                                         $MSKH = $chitietdonhang['MSKH'];
                                         $SoDonDH = $chitietdonhang['SoDonDH'];
                                         $khachhang = mysqli_fetch_array(
@@ -200,34 +237,58 @@ if (isset($trangthai) and isset($sodondh)) {
                                 <thead>
                                     <tr>
                                         <th class="order__tabel-id" style="width: 160px;">MSKH</th>
-                                        <th class="order__tabel-name" style="width: 280px;">Tên Khách Hàng</th>
-                                        <th class="order__tabel-company" style="width: 280px;">Tên Công Ty</th>
-                                        <th class="order__tabel-address" style="width: 280px;">Đia Chỉ</th>
+                                        <th class="order__tabel-name" style="width: 200px;">Tên Khách Hàng</th>
+                                        <th class="order__tabel-company" style="width: 200px;">Tên Công Ty</th>
+                                        <th class="order__tabel-address" style="width: 380px;">Đia Chỉ</th>
                                         <th>Tổng chi</th>
                                         <th class="order__tabel-edit" style="width: 100px;text-align: center;"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="order__tabel-id">
-                                            <p style="margin-bottom: 0;">a</p>
-                                        </td>
-                                        <td class="order__tabel-name">
-                                            <p>b</p>
-                                        </td>
-                                        <td class="order__tabel-company">
-                                            <p>c</p>
-                                        </td>
-                                        <td class="order__tabel-address">
-                                            <p>d</p>
-                                        </td>
-                                        <td class="order__tabel-amount">
-                                            <p>e</p>
-                                        </td>
-                                        <td class="order__tabel-edit" style="width: 100px;text-align: center;">
-                                            <i class="fas fa-ellipsis-h"></i>
-                                        </td>
-                                    </tr>
+                                    <?php
+                                    $sql = "SELECT  a.*
+                                            FROM   `khachhang` as a";
+                                    $query = mysqli_query($conn, $sql);
+                                    while ($khachhang = mysqli_fetch_array($query)) {
+                                        $MSKH = $khachhang['MSKH'];
+                                        $donhang = mysqli_fetch_array(
+                                            mysqli_query(
+                                                $conn,
+                                                "SELECT a.*, sum(b.GiaDatHang) as amount
+                                                FROM `dathang` as a, `chitietdathang` as b
+                                                WHERE a.SoDonDH = b.SoDonDH and a.MSKH = '$MSKH'
+                                                GROUP BY a.MSKH
+                                                "
+                                            )
+                                        )
+                                    ?>
+                                        <tr>
+                                            <td class="order__tabel-id">
+                                                <p style="margin-bottom: 0;"><?php echo $khachhang['MSKH']; ?></p>
+                                            </td>
+                                            <td class="order__tabel-name">
+                                                <p><?php echo $khachhang['HoTenKH']
+                                                    ?></p>
+                                            </td>
+                                            <td class="order__tabel-company">
+                                                <p><?php echo $khachhang['TenCongTy']
+                                                    ?></p>
+                                            </td>
+                                            <td class="order__tabel-address">
+                                                <p><?php echo $khachhang['DiaChi']
+                                                    ?></p>
+                                            </td>
+                                            <td class="order__tabel-amount">
+                                                <p><?php echo isset($donhang['amount']) ? $donhang['amount'] : 0;
+                                                    ?>đ</p>
+                                            </td>
+                                            <td class="order__tabel-edit" style="width: 100px;text-align: center;">
+                                                <i class="fas fa-ellipsis-h"></i>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
