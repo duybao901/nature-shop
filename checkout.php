@@ -86,7 +86,7 @@ if (isset($_POST['submit'])) {
                 unset($_SESSION['carts']);
                 echo "<script> 
                             alert('Đặt hàng thành công');
-                            window.location.href='/shop/checkout.php';
+                            window.location.href='/shop/myaccount.php';
                         </script>";
             }
         } else {
@@ -271,7 +271,7 @@ if (isset($_POST['submit'])) {
                                 </tr>
                                 <tr>
                                     <td class="checkout__order-tong">
-                                        ORDER TOTAL
+                                        TỔNG ĐƠN HÀNG
                                     </td>
                                     <td class="checkout__order-tong">
                                         <?php if (isset($_SESSION['carts'])) {

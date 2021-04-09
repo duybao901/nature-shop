@@ -28,6 +28,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     // admin login
     if ($email == 'admin@gmail.com' and $mat_khau == 'admin') {
         echo $email;
+        $_SESSION['isAdmin'] = true;
         header('location: admin.php');
     } else {
         // User login

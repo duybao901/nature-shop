@@ -33,9 +33,11 @@ session_start();
 include_once("./connect.php");
 
 $islogout = isset($_GET['user_logout']) ? isset($_GET['user_logout']) : false;
-if($islogout){
+if ($islogout) {
     unset($_SESSION['user_email']);
     unset($_SESSION['islogin']);
+    unset($_SESSION['MSKH']);
+    unset($_SESSION['carts']);
     header("Location: home.php");
 }
 
@@ -230,7 +232,7 @@ if($islogout){
                                     </div>
 
                                     <p class="item__name">
-                                        <?php echo $rows['TenHH'];                              
+                                        <?php echo $rows['TenHH'];
                                         ?>
                                     </p>
                                     <div class="item__price">
@@ -463,7 +465,7 @@ if($islogout){
                                                 <i class="fa fa-star-o "></i>
                                                 <i class="fa fa-star-o "></i>
                                             </div>
-                                            <a href="detail.php?=<?php echo $rows["MSHH"] ?>" class="slide__item-name"><?php echo $rows["TenHH"] ?></a>
+                                            <a href="detail.php?chitiet=<?php echo $rows["MSHH"] ?>" class="slide__item-name"><?php echo $rows["TenHH"] ?></a>
                                             <h3 class="slide__item-price">
                                                 <?php echo number_format($rows['Gia'], 0, ',', '.'); ?> đ
                                                 <?php
@@ -502,7 +504,7 @@ if($islogout){
                                                 <i class="fa fa-star-o "></i>
                                                 <i class="fa fa-star-o "></i>
                                             </div>
-                                            <a href="detail.php?=<?php echo $rows["MSHH"] ?>" class="slide__item-name"><?php echo $rows["TenHH"] ?></a>
+                                            <a href="detail.php?chitiet=<?php echo $rows["MSHH"] ?>" class="slide__item-name"><?php echo $rows["TenHH"] ?></a>
                                             <h3 class="slide__item-price">
                                                 <?php echo number_format($rows['Gia'], 0, ',', '.'); ?> đ
                                                 <?php
@@ -552,7 +554,7 @@ if($islogout){
                                                 <i class="fa fa-star-o "></i>
                                                 <i class="fa fa-star-o "></i>
                                             </div>
-                                            <a href="detail.php?=<?php echo $rows["MSHH"] ?>" class="slide__item-name"><?php echo $rows["TenHH"] ?></a>
+                                            <a href="detail.php?chitiet=<?php echo $rows["MSHH"] ?>" class="slide__item-name"><?php echo $rows["TenHH"] ?></a>
                                             <h3 class="slide__item-price">
                                                 <?php echo number_format($rows['Gia'], 0, ',', '.'); ?> đ
                                                 <?php
@@ -591,7 +593,7 @@ if($islogout){
                                                 <i class="fa fa-star-o "></i>
                                                 <i class="fa fa-star-o "></i>
                                             </div>
-                                            <a href="detail.php?=<?php echo $rows["MSHH"] ?>" class="slide__item-name"><?php echo $rows["TenHH"] ?></a>
+                                            <a href="detail.php?chitiet=<?php echo $rows["MSHH"] ?>" class="slide__item-name"><?php echo $rows["TenHH"] ?></a>
                                             <h3 class="slide__item-price">
                                                 <?php echo number_format($rows['Gia'], 0, ',', '.'); ?> đ
                                                 <?php
@@ -641,7 +643,7 @@ if($islogout){
                                                 <i class="fa fa-star-o "></i>
                                                 <i class="fa fa-star-o "></i>
                                             </div>
-                                            <a href="detail.php?=<?php echo $rows["MSHH"] ?>" class="slide__item-name"><?php echo $rows["TenHH"] ?></a>
+                                            <a href="detail.php?chitiet=<?php echo $rows["MSHH"] ?>" class="slide__item-name"><?php echo $rows["TenHH"] ?></a>
                                             <h3 class="slide__item-price">
                                                 <?php echo number_format($rows['Gia'], 0, ',', '.'); ?> đ
                                                 <?php
@@ -680,7 +682,7 @@ if($islogout){
                                                 <i class="fa fa-star-o "></i>
                                                 <i class="fa fa-star-o "></i>
                                             </div>
-                                            <a href="detail.php?=<?php echo $rows["MSHH"] ?>" class="slide__item-name"><?php echo $rows["TenHH"] ?></a>
+                                            <a href="detail.php?chitiet=<?php echo $rows["MSHH"] ?>" class="slide__item-name"><?php echo $rows["TenHH"] ?></a>
                                             <h3 class="slide__item-price">
                                                 <?php echo number_format($rows['Gia'], 0, ',', '.'); ?> đ
                                                 <?php

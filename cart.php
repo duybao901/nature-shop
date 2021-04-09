@@ -125,12 +125,12 @@ include_once("./connect.php");
                                     ))) {
                         ?>
                                     <tr>
-                                        <td class='cart__tbody-btn'><a href="addcart.php?id_sp=<?php echo $product['MSHH'] ?>&type=remove&location=<?php echo $_SERVER['REQUEST_URI'] ?>" style="color:#292929"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                        <td class='cart__tbody-btn'></td>
                                         <td class='cart__tbody-img'><a href="detail.php?chitiet=<?php echo $product['MSHH'] ?>"><img src="<?php echo $product['anh'] ?>" alt=""></a></td>
                                         <td class='cart__tbody-name'><?php echo $product['TenHH'] ?></td>
                                         <td class='cart__tbody-price'><?php echo number_format($product['Gia'], 0, ',', '.'); ?> đ</td>
                                         <td class='cart__tbody-quantity'><?php echo $order['SoLuong'] ?></td>
-                                        <td class='cart__tbody-total'><?php echo number_format($order['GiaDatHang'], 0, ',', '.') ;?> đ</td>
+                                        <td class='cart__tbody-total'><?php echo number_format($order['GiaDatHang'], 0, ',', '.'); ?> đ</td>
                                     </tr>
                     <?php
                                     }
@@ -156,7 +156,7 @@ include_once("./connect.php");
                             TỔNG PHỤ
                         </span>
                         <p><?php echo number_format($totalPriceAll, 0, ',', '.'); ?> đ</p>
-                    </div>              
+                    </div>
                     <div class="cart__total-row">
                         <span>
                             VAT (1%)

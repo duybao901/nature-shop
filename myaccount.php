@@ -199,7 +199,7 @@ if (isset($_POST['submit-info'])) {
                             $MSKH = isset($_SESSION['MSKH']) ? $_SESSION['MSKH'] : '';
                             $sql = "SELECT a.* , b.* 
                             FROM `chitietdathang` as a, `dathang` as b
-                            WHERE a.SoDonDH = b.SoDonDH
+                            WHERE a.SoDonDH = b.SoDonDH and b.MSKH ='$MSKH'
                             GROUP BY a.SoDonDH ORDER BY b.NgayDH DESC";
                             $query = mysqli_query($conn, $sql);                    
                             while ($rows = mysqli_fetch_array($query)) {

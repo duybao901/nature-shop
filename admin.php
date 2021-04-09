@@ -21,6 +21,13 @@ session_start();
 include_once("./connect.php");
 $trangthai = isset($_GET['trangthai']) ? $_GET['trangthai'] : null;
 $sodondh = isset($_GET['sodondh']) ? $_GET['sodondh'] : null;
+$isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : false;
+echo $isAdmin;
+if (!$isAdmin) {
+    echo "<script> 
+      window.location.href='/shop/login.php';
+    </script>";
+}
 
 if (isset($trangthai) and isset($sodondh)) {
     if (mysqli_query($conn, "UPDATE `chitietdathang` SET `TrangThai`='$trangthai' WHERE SoDonDH='$sodondh' ")) {
@@ -92,42 +99,63 @@ if (isset($trangthai) and isset($sodondh)) {
                     </div>
                 </div>
                 <div class="content__body">
-                    <div class="content__body-box content__body-dashboard" id='dashboard'>
-                        <h1 class="order__title">Danh Sách Khách hàng</h1>
+                    <div class="content__body-box content__body-dashboard content__body-order" id='dashboard'>
+                        <div class="dashboard__heading">
+                            <h1 class="order__title">Danh Sách Hàng Hóa</h1>
+                            <button href="" class="dashboard__heading-btn" data-toggle="modal" data-target="#themhanghoa">Thêm Hàng Hóa</button>
+                        </div>
                         <div class="customer__table order__table">
                             <table>
                                 <thead>
                                     <tr>
-                                        <th class="order__tabel-id" style="width: 160px;">MSKH</th>
-                                        <th class="order__tabel-name" style="width: 200px;">Tên Khách Hàng</th>
-                                        <th class="order__tabel-company" style="width: 200px;">Tên Công Ty</th>
-                                        <th class="order__tabel-address" style="width: 380px;">Đia Chỉ</th>
-                                        <th>Tổng chi</th>
+                                        <th class="order__tabel-id" style="width: 160px;">MSHH</th>
+                                        <th class="order__tabel-name" style="width: 300px;">Tên Hàng Hóa</th>
+                                        <th class="order__tabel-n-price" style="width: 150px;">Giá Mới</th>
+                                        <th class="order__tabel-o-rice" style="width: 150px;">Giá Cũ</th>
+                                        <th class="order__tabel-quantity" style="width: 150px;">Số Lượng</th>
+                                        <th class="order__tabel-mlh" style="width: 150px;">Mã Loại Hàng</th>
+                                        <th class="order__tabel-image" style="width: 280px;text-align: center;">Ảnh</th>
+                                        <th class="order__tabel-type" style="width: 180px;">Loại</th>
                                         <th class="order__tabel-edit" style="width: 100px;text-align: center;"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
-                                    <tr>
-                                        <td class="order__tabel-id">
-                                            <p style="margin-bottom: 0;">a</p>
-                                        </td>
-                                        <td class="order__tabel-name">
-                                            <p>b</p>
-                                        </td>
-                                        <td class="order__tabel-company">
-                                            <p>c</p>
-                                        </td>
-                                        <td class="order__tabel-address">
-                                            <p>d</p>
-                                        </td>
-                                        <td class="order__tabel-amount">
-                                            <p>eđ</p>
-                                        </td>
-                                        <td class="order__tabel-edit" style="width: 100px;text-align: center;">
-                                            <i class="fas fa-ellipsis-h"></i>
-                                        </td>
-                                    </tr>
+                                    <?php
+                                    $sql = "SELECT * FROM `hanghoa` WHERE 1";
+                                    $query = mysqli_query($conn, $sql);
+                                    while ($hanghoa = mysqli_fetch_array($query)) {
+                                    ?>
+                                        <tr>
+                                            <td class="order__tabel-id" style="width: 160px;"><?php echo $hanghoa['MSHH'] ?></td>
+                                            <td class="order__tabel-name" style="width: 300px;"><?php echo $hanghoa['TenHH'] ?></td>
+                                            <td class="order__tabel-n-price" style="width: 150px;"><?php echo number_format($hanghoa['Gia'], 0, ',', '.') ?>đ</td>
+                                            <td class="order__tabel-0-price" style="width: 150px;"><?php echo isset($hanghoa['GiaCu']) ? number_format($hanghoa['GiaCu'], 0, ',', '.') : "" ?>đ</td>
+                                            <td class="order__tabel-quantity" style="width: 150px;"><?php echo $hanghoa['SoLuongHang'] ?></td>
+                                            <td class="order__tabel-mlh" style="width: 150px;"><?php echo $hanghoa['MaLoaiHang'] ?></td>
+                                            <td class="order__tabel-image" style="width: 280px;text-align: center;">
+                                                <img src="<?php echo $hanghoa['anh'] ?>" alt="" style="width: 80px;height:80px;object-fit: cover;">
+                                            </td>
+                                            <td class="order__tabel-type" style="width: 180px;">
+                                                <?php $type = $hanghoa['type'];
+                                                switch ($type) {
+                                                    case '1':
+                                                        echo "Bán chạy";
+                                                        break;
+                                                    case '2':
+                                                        echo "Mới về";
+                                                        break;
+                                                    case '3':
+                                                        echo "Xem nhiều";
+                                                        break;
+                                                    default:
+                                                        # code...
+                                                        break;
+                                                } ?></td>
+                                            <td class="order__tabel-edit" style="width: 100px;text-align: center;">
+                                                <i class="fas fa-ellipsis-h"></i>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -293,6 +321,26 @@ if (isset($trangthai) and isset($sodondh)) {
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="themhanghoa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>

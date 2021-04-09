@@ -218,10 +218,12 @@
 .content .content__body .content__body-box {
     height: 0;
     opacity: 0;
+    display: none;
 }
 
 .content .content__body .content__body-box.content__body-box--active {
     animation: fadeIn .2s linear forwards;
+    display: block;
 }
 
 @keyframes fadeIn {
@@ -232,6 +234,7 @@
     100% {
         height: auto;
         opacity: 1;
+        display: block;
     }
 }
 
@@ -239,6 +242,44 @@
     padding: 40px;
     background-color: #fbfbfb;
     min-height: 100vh;
+}
+
+.content .content__body-dashboard .dashboard__heading {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.content .content__body-dashboard .dashboard__heading .dashboard__heading-btn {
+    display: block;
+    width: 180px;
+    height: 40px;
+    background-color: var(--color-primary);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #fff;
+    text-transform: uppercase;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, .1);
+    transition: all .1s linear;
+    border: none;
+    outline: none;
+}
+
+.content .content__body-dashboard .dashboard__heading .dashboard__heading-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, .2);
+}
+
+.content .content__body-dashboard .dashboard__heading h1 {
+    margin: 0 !important;
 }
 
 .content .content__body .content__body-order h1 {
@@ -406,6 +447,6 @@
     background-color: var(--color-primary-light);
 }
 
-.customer__table table tr td p{
+.customer__table table tr td p {
     margin-bottom: 0;
 }
