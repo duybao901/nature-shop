@@ -73,7 +73,7 @@ $rl_query = mysqli_query($conn, $rl_query);
             <div class="row">
                 <div class="col-lg-5">
                     <div class="product-detail__img">
-                        <img src=" <?php echo $row["anh"] ?>" alt="">
+                        <img src="assets/img/<?php echo $row["anh"] ?>" alt="">
                     </div>
                 </div>
                 <div class="col-lg-7">
@@ -276,7 +276,7 @@ $rl_query = mysqli_query($conn, $rl_query);
                     while ($rl_rows = mysqli_fetch_array($rl_query)) {
                     ?>
                         <div class="slide__item">
-                            <img src=" <?php echo $rl_rows["anh"] ?>" alt="" class="slide__item-img">
+                            <img src="assets/img/<?php echo $rl_rows["anh"] ?>" alt="" class="slide__item-img">
                             <div class="slide__item-rate">
                                 <i class="fa fa-star-o color"></i>
                                 <i class="fa fa-star-o color"></i>

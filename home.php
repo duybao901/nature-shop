@@ -222,7 +222,7 @@ if ($islogout) {
                             while ($rows = mysqli_fetch_array($query)) {
                             ?>
                                 <div class="content__slide-item">
-                                    <img src="<?php echo $rows['anh'] ?>" alt="" class="item__img">
+                                    <img src="assets/img/<?php echo $rows['anh'] ?>" alt="" class="item__img">
                                     <div class="item__rate">
                                         <i class="fa fa-star-o color"></i>
                                         <i class="fa fa-star-o color"></i>
@@ -270,7 +270,7 @@ if ($islogout) {
                             while ($rows = mysqli_fetch_array($query)) {
                             ?>
                                 <div class="content__slide-item">
-                                    <img src="<?php echo $rows['anh'] ?>" alt="" class="item__img">
+                                    <img src="assets/img/<?php echo $rows['anh'] ?>" alt="" class="item__img">
                                     <div class="item__rate">
                                         <i class="fa fa-star-o color"></i>
                                         <i class="fa fa-star-o color"></i>
@@ -316,7 +316,7 @@ if ($islogout) {
                             while ($rows = mysqli_fetch_array($query)) {
                             ?>
                                 <div class="content__slide-item">
-                                    <img src="<?php echo $rows['anh'] ?>" alt="" class="item__img">
+                                    <img src="assets/img/<?php echo $rows['anh'] ?>" alt="" class="item__img">
                                     <div class="item__rate">
                                         <i class="fa fa-star-o color"></i>
                                         <i class="fa fa-star-o color"></i>
@@ -362,7 +362,7 @@ if ($islogout) {
                             while ($rows = mysqli_fetch_array($query)) {
                             ?>
                                 <div class="content__slide-item">
-                                    <img src="<?php echo $rows['anh'] ?>" alt="" class="item__img">
+                                    <img src="assets/img/<?php echo $rows['anh'] ?>" alt="" class="item__img">
                                     <div class="item__rate">
                                         <i class="fa fa-star-o color"></i>
                                         <i class="fa fa-star-o color"></i>
@@ -454,8 +454,8 @@ if ($islogout) {
                                 while ($rows = mysqli_fetch_array($query)) {
                                 ?>
                                     <div class="slide__item">
-                                        <a href="detail.php?chitiet?=<?php echo $rows["MSHH"] ?>">
-                                            <img src="<?php echo $rows["anh"] ?>" alt="" class='slide__item-img'>
+                                        <a href="detail.php?chitiet=<?php echo $rows["MSHH"] ?>">
+                                            <img src="assets/img/<?php echo $rows["anh"] ?>" alt="" class='slide__item-img'>
                                         </a>
                                         <div class="slide__item-info">
                                             <div class="slide__item-rate">
@@ -493,8 +493,8 @@ if ($islogout) {
                                 while ($rows = mysqli_fetch_array($query)) {
                                 ?>
                                     <div class="slide__item">
-                                        <a href="detail.php?chitiet?=<?php echo $rows["MSHH"] ?>">
-                                            <img src="<?php echo $rows["anh"] ?>" alt="" class='slide__item-img'>
+                                        <a href="detail.php?chitiet=<?php echo $rows["MSHH"] ?>">
+                                            <img src="assets/img/<?php echo $rows["anh"] ?>" alt="" class='slide__item-img'>
                                         </a>
                                         <div class="slide__item-info">
                                             <div class="slide__item-rate">
@@ -543,8 +543,8 @@ if ($islogout) {
                                 while ($rows = mysqli_fetch_array($query)) {
                                 ?>
                                     <div class="slide__item">
-                                        <a href="detail.php?chitiet?=<?php echo $rows["MSHH"] ?>">
-                                            <img src="<?php echo $rows["anh"] ?>" alt="" class='slide__item-img'>
+                                        <a href="detail.php?chitiet=<?php echo $rows["MSHH"] ?>">
+                                            <img src="assets/img/<?php echo $rows["anh"] ?>" alt="" class='slide__item-img'>
                                         </a>
                                         <div class="slide__item-info">
                                             <div class="slide__item-rate">
@@ -582,8 +582,8 @@ if ($islogout) {
                                 while ($rows = mysqli_fetch_array($query)) {
                                 ?>
                                     <div class="slide__item">
-                                        <a href="detail.php?chitiet?=<?php echo $rows["MSHH"] ?>">
-                                            <img src="<?php echo $rows["anh"] ?>" alt="" class='slide__item-img'>
+                                        <a href="detail.php?chitiet=<?php echo $rows["MSHH"] ?>">
+                                            <img src="assets/img/<?php echo $rows["anh"] ?>" alt="" class='slide__item-img'>
                                         </a>
                                         <div class="slide__item-info">
                                             <div class="slide__item-rate">
@@ -632,8 +632,8 @@ if ($islogout) {
                                 while ($rows = mysqli_fetch_array($query)) {
                                 ?>
                                     <div class="slide__item">
-                                        <a href="detail.php?chitiet?=<?php echo $rows["MSHH"] ?>">
-                                            <img src="<?php echo $rows["anh"] ?>" alt="" class='slide__item-img'>
+                                        <a href="detail.php?chitiet=<?php echo $rows["MSHH"] ?>">
+                                            <img src="assets/img/<?php echo $rows["anh"] ?>" alt="" class='slide__item-img'>
                                         </a>
                                         <div class="slide__item-info">
                                             <div class="slide__item-rate">
@@ -671,8 +671,8 @@ if ($islogout) {
                                 while ($rows = mysqli_fetch_array($query)) {
                                 ?>
                                     <div class="slide__item">
-                                        <a href="detail.php?chitiet?=<?php echo $rows["MSHH"] ?>">
-                                            <img src="<?php echo $rows["anh"] ?>" alt="" class='slide__item-img'>
+                                        <a href="detail.php?chitiet=<?php echo $rows["MSHH"] ?>">
+                                            <img src="assets/img/<?php echo $rows["anh"] ?>" alt="" class='slide__item-img'>
                                         </a>
                                         <div class="slide__item-info">
                                             <div class="slide__item-rate">

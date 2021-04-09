@@ -450,3 +450,32 @@
 .customer__table table tr td p {
     margin-bottom: 0;
 }
+
+/** Add product */
+
+.addproduct__heading h5 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.addproduct__form .form__group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+
+.addproduct__form .form__group label {
+    font-size: 14px;
+    color: #696969;
+    margin-bottom: 4px;
+}
+
+.addproduct__form .form__group input {
+    border: 1px solid #e8e8e8;
+    height: 40px;
+    background-color: transparent;
+    padding: 2px 20px;
+    color: #1f2226;
+    font-size: 13px;
+    width: 100%;
+}

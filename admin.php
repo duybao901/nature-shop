@@ -19,16 +19,19 @@
 ob_start();
 session_start();
 include_once("./connect.php");
-$trangthai = isset($_GET['trangthai']) ? $_GET['trangthai'] : null;
-$sodondh = isset($_GET['sodondh']) ? $_GET['sodondh'] : null;
+
+
+// Kiem tra neu chua login bang admin thi phai login
 $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : false;
-echo $isAdmin;
 if (!$isAdmin) {
     echo "<script> 
       window.location.href='/shop/login.php';
     </script>";
 }
 
+// Dat lai trang thai cac don hang
+$trangthai = isset($_GET['trangthai']) ? $_GET['trangthai'] : null;
+$sodondh = isset($_GET['sodondh']) ? $_GET['sodondh'] : null;
 if (isset($trangthai) and isset($sodondh)) {
     if (mysqli_query($conn, "UPDATE `chitietdathang` SET `TrangThai`='$trangthai' WHERE SoDonDH='$sodondh' ")) {
         echo "<script> 
@@ -133,7 +136,7 @@ if (isset($trangthai) and isset($sodondh)) {
                                             <td class="order__tabel-quantity" style="width: 150px;"><?php echo $hanghoa['SoLuongHang'] ?></td>
                                             <td class="order__tabel-mlh" style="width: 150px;"><?php echo $hanghoa['MaLoaiHang'] ?></td>
                                             <td class="order__tabel-image" style="width: 280px;text-align: center;">
-                                                <img src="<?php echo $hanghoa['anh'] ?>" alt="" style="width: 80px;height:80px;object-fit: cover;">
+                                                <img src="assets/img/<?php echo $hanghoa['anh'] ?>" alt="" style="width: 80px;height:80px;object-fit: cover;">
                                             </td>
                                             <td class="order__tabel-type" style="width: 180px;">
                                                 <?php $type = $hanghoa['type'];
@@ -325,22 +328,42 @@ if (isset($trangthai) and isset($sodondh)) {
             </div>
         </div>
     </div>
-    <!-- Modal -->
+    <!-- Modal Them Hang Hoa -->
     <div class="modal fade" id="themhanghoa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content addproduct__heading">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm Hàng Hóa</h5>
+                    <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
                 <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <form action="#" method="POST" class='addproduct__form'>
+                        <div class="form__group">
+                            <label for="tenhanghoa">Tên Hàng Hóa</label>
+                            <input type="text" id='tenhanghoa' name='tenhanghoa'>
+                        </div>
+                        <div class="form__group">
+                            <label for="tenhanghoa">Quỷ Cách</label>
+                            <input type="text" id='tenhanghoa' name='tenhanghoa'>
+                        </div>
+                        <div class="form__group">
+                            <label for="tenhanghoa">Giá Cũ</label>
+                            <input type="text" id='tenhanghoa' name='tenhanghoa'>
+                        </div>
+                        <div class="form__group">
+                            <label for="tenhanghoa">Số Lượng Hàng</label>
+                            <input type="text" id='tenhanghoa' name='tenhanghoa'>
+                        </div>
+                        <div class="form__group">
+                            <label for="tenhanghoa">Số Lượng Hàng</label>
+                            <input type="text" id='tenhanghoa' name='tenhanghoa'>
+                        </div>
+                        <div class="" style="float:right;">
+                            <a type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</a>
+                            <button href="addmin.php?" type="submit" class="btn btn-primary" name='submit-address'>Lưu</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

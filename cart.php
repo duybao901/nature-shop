@@ -101,7 +101,7 @@ include_once("./connect.php");
                             ?>
                                     <tr>
                                         <td class='cart__tbody-btn'><a href="addcart.php?id_sp=<?php echo $rows['MSHH'] ?>&type=remove&location=<?php echo $_SERVER['REQUEST_URI'] ?>" style="color:#292929"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                                        <td class='cart__tbody-img'><a href="detail.php?chitiet=<?php echo $rows['MSHH'] ?>"><img src="<?php echo $rows['anh'] ?>" alt=""></a></td>
+                                        <td class='cart__tbody-img'><a href="detail.php?chitiet=<?php echo $rows['MSHH'] ?>"><img src="assets/img/<?php echo $rows['anh'] ?>" alt=""></a></td>
                                         <td class='cart__tbody-name'><?php echo $rows['TenHH'] ?></td>
                                         <td class='cart__tbody-price'><?php echo $rows['Gia'] ?> đ</td>
                                         <td class='cart__tbody-quantity'><?php echo $_SESSION['carts']["$id_sp"] ?></td>
@@ -126,7 +126,7 @@ include_once("./connect.php");
                         ?>
                                     <tr>
                                         <td class='cart__tbody-btn'></td>
-                                        <td class='cart__tbody-img'><a href="detail.php?chitiet=<?php echo $product['MSHH'] ?>"><img src="<?php echo $product['anh'] ?>" alt=""></a></td>
+                                        <td class='cart__tbody-img'><a href="detail.php?chitiet=<?php echo $product['MSHH'] ?>"><img src="assets/img/<?php echo $product['anh'] ?>" alt=""></a></td>
                                         <td class='cart__tbody-name'><?php echo $product['TenHH'] ?></td>
                                         <td class='cart__tbody-price'><?php echo number_format($product['Gia'], 0, ',', '.'); ?> đ</td>
                                         <td class='cart__tbody-quantity'><?php echo $order['SoLuong'] ?></td>

@@ -161,7 +161,7 @@
                                          </a>
                                          <div>
                                              <a href="detail.php?chitiet=<?php echo $rows['MSHH'] ?>">
-                                                 <img src="<?php echo $rows["anh"] ?>" alt="">
+                                                 <img src="assets/img/<?php echo $rows["anh"] ?>" alt="">
                                              </a>
                                              <div class="right__cart-info">
                                                  <a href="detail.php?chitiet=<?php echo $rows['MSHH'] ?>"><?php echo $rows["TenHH"] ?></a>
@@ -190,7 +190,7 @@
                                      <span>Tổng cộng :</span>
                                      <span><?php echo number_format($totalPriceAll, 0, ',', '.'); ?>đ</span>
                                  </li>
-                            
+
                                  <li>
                                      <span>VAT (1%) :</span>
                                      <span><?php echo number_format($totalPriceAll * $VAT / 100, 0, ',', '.'); ?>đ</span>
