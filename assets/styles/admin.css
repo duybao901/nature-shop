@@ -479,3 +479,17 @@
     font-size: 13px;
     width: 100%;
 }
+
+.addproduct__form .form__group select {
+    border: 1px solid #e8e8e8;
+    height: 40px;
+    background-color: transparent;
+    color: #1f2226;
+    font-size: 14px;
+    width: 100%;
+}
+
+.addproduct__form .form__group input[type='file'] {
+    padding: 0;
+   
+}

@@ -57,7 +57,7 @@ if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['re_pass
             `khachhang`(`MSKH`, `HoTenKH`, `TenCongTy`, `DiaChi`, `SoDienThoai`, `Email`, `MatKhau`) 
             VALUES ('$MSKH','$name','$companyname','$address','$phone','$email','$mat_khau_hash')";
             mysqli_query($conn, $sql);
-            
+
             $MaDC = randomId(5);
             mysqli_query($conn, "INSERT INTO `diachikh`(`MaDC`, `DiaChi`, `MSKH`) VALUES ('$MaDC','$address','$MSKH')");
             header("location: login.php?email=$email");
