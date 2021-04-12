@@ -110,14 +110,14 @@ if (isset($_POST['submit-info'])) {
             window.location.href='/shop/myaccount.php';
         </script>";
         } else {
-            if ($new_password !== $re_password) {
+            if ($new_password != $re_password) {
                 echo "<script> 
             alert('Mật khẩu không khớp!');
             window.location.href='/shop/myaccount.php';
         </script>";
             }
         }
-        if ($user_password !== md5($cr_password)) {
+        if ($user_password != md5($cr_password)) {
             echo "<script> 
             alert('Sai mật khẩu hiện tại!');
             window.location.href='/shop/myaccount.php';

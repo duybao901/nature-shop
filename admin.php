@@ -64,10 +64,113 @@ if (isset($_POST['addproduct'])) {
 
     // Xu ly anh
     $target_dir = "assets/img/";
-    $target_file = basename($_FILES["anh"]["name"]); // assets/img/nameimage.(png,jpg,...);
+    $target_file = $target_dir . basename($_FILES["anh"]["name"]); // assets/img/nameimage.(png,jpg,...);
+    $file_name =
+        basename($_FILES["anh"]["name"]);
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     $upload_ok = true;
     $is_exist = false;
+    if ($_FILES['anh']['name'] == '') { // 1Mb
+        echo "<script>
+                alert('Ảnh không được để trống!');
+                window.location.href = 'admin.php';
+            </script>";
+        $upload_ok = false;
+    }
+    // Kiem tra file co ton tai hay chua neu ton tai thi ko luu anh
+    if (file_exists($target_file)) {
+        $is_exist = true;
+    }
+
+    // Kiem do size
+    if ($_FILES['anh']['size'] > 1024 * 1024) { // 1Mb
+        echo "<script>
+                alert('Size ảnh không được quá 1MB');
+                window.location.href = 'admin.php';
+            </script>";
+        $upload_ok = false;
+    }
+
+    //Kiem tra type
+    if ($imageFileType != 'jpg' and $imageFileType != "png" and $imageFileType != "jpeg") {
+        echo "<script>
+                alert('Định dạnh file không hợp lệ');
+                window.location.href = 'admin.php';
+            </script>";
+        $upload_ok = false;
+    }
+
+
+    if ($is_exist == false) {
+        if (move_uploaded_file($_FILES["anh"]["tmp_name"], $target_file)) {
+            $MSHH = randomId(5);
+            $sql = "INSERT INTO `hanghoa`
+                    (`MSHH`, `TenHH`, `QuyCach`, `Gia`, `GiaCu`, `SoLuongHang`, `MaLoaiHang`, `anh`) 
+                    VALUES 
+                    ('$MSHH','$tenhanghoa','$quycach','$giamoi','$giacu','$soluonghang','$maloaihang','$file_name')";
+            if (mysqli_query($conn, $sql)) {
+                echo "<script>
+                            alert('Thêm sản phẩm thành công');
+                            window.location.href = 'admin.php';
+                        </script>";
+            }
+        }
+    } else {
+        $MSHH = randomId(5);
+        $sql = "INSERT INTO `hanghoa`
+                    (`MSHH`, `TenHH`, `QuyCach`, `Gia`, `GiaCu`, `SoLuongHang`, `MaLoaiHang`, `anh`) 
+                    VALUES 
+                    ('$MSHH','$tenhanghoa','$quycach','$giamoi','$giacu','$soluonghangng','$maloaihang','$file_name')";
+        if (mysqli_query($conn, $sql)) {
+            echo "<script>
+                            alert('Thêm sản phẩm thành công');
+                            window.location.href = 'admin.php';
+                        </script>";
+        }
+    }
+}
+
+
+
+// Xoa 1 san pham
+$onremove = isset($_GET['remove']) ? $_GET['remove'] : false;
+if ($onremove == true) {
+    $mshh = isset($_GET['mshh']) ? $_GET['mshh'] : "false";
+    if (mysqli_query($conn, "DELETE FROM `hanghoa` WHERE MSHH='$mshh'")) {
+        echo "<script>
+                        alert('Xóa sản phẩm thành công');
+                        window.location.href = 'admin.php';
+                    </script>";
+    }
+}
+
+// Chinh Sua San Pham
+if (isset($_POST['updateproduct'])) {
+    $mshh = $_POST['MSHH'];
+    $tenhanghoa = $_POST['tenhanghoa'];
+    $quycach = $_POST['quycach'];
+    $giacu = $_POST['giacu'];
+    $giamoi = $_POST['giamoi'];
+    $soluonghang = $_POST['soluonghang'];
+    $maloaihang = $_POST['maloaihang'];
+    $trangthai = $_POST['trangthai'];
+
+    // Xu ly anh
+    $target_dir = "assets/img/";
+    $target_file = $target_dir . basename($_FILES["anh"]["name"]); // assets/img/nameimage.(png,jpg,...);
+    $file_name =
+        basename($_FILES["anh"]["name"]);
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $upload_ok = true;
+    $is_exist = false;
+
+    if ($_FILES['anh']['name'] == '') { // 1Mb
+        echo "<script>
+                alert('Ảnh không được để trống!');
+                window.location.href = 'admin.php';
+            </script>";
+        $upload_ok = false;
+    }
 
     // Kiem tra file co ton tai hay chua neu ton tai thi ko luu anh
     if (file_exists($target_file)) {
@@ -77,63 +180,63 @@ if (isset($_POST['addproduct'])) {
     // Kiem do size
     if ($_FILES['anh']['size'] > 1024 * 1024) { // 1Mb
         echo "<script>
-            alert('Size ảnh không được quá 1MB');
-            window.location.href = 'admin.php';
-        </script>";
+                alert('Size ảnh không được quá 1MB');
+                window.location.href = 'admin.php';
+            </script>";
         $upload_ok = false;
     }
 
     //Kiem tra type
     if ($imageFileType != 'jpg' and $imageFileType != "png" and $imageFileType != "jpeg") {
         echo "<script>
-            alert('Định dạnh file không hợp lệ');
-            window.location.href = 'admin.php';
-        </script>";
+                alert('Định dạnh file không hợp lệ');
+                window.location.href = 'admin.php';
+            </script>";
         $upload_ok = false;
     }
 
     if ($upload_ok == true) {
-        if ($is_exist = false) {
-            if (move_uploaded_file($target_dir, $target_file)) {
-                $MSHH = randomId(5);
-                $sql = "INSERT INTO `hanghoa`
-                (`MSHH`, `TenHH`, `QuyCach`, `Gia`, `GiaCu`, `SoLuongHang`, `MaLoaiHang`, `anh`) 
-                VALUES 
-                ('$MSHH','$tenhanghoa','$quycach','$giamoi','$giacu','$soluonghangng','$maloaihang','$target_file')";
+        if ($is_exist == false) {
+            if (move_uploaded_file($_FILES["anh"]["tmp_name"], $target_file)) {
+                $sql = "UPDATE `hanghoa` SET 
+                    `MSHH` = '$mshh',
+                    `TenHH`='$tenhanghoa',
+                    `QuyCach`='$quycach',
+                    `Gia`='$giamoi',
+                    `GiaCu`='$giacu',
+                    `SoLuongHang`='$soluonghang',
+                    `MaLoaiHang`='$maloaihang',
+                    `anh`='$file_name',
+                    `type` ='$trangthai' WHERE MSHH='$mshh'";
                 if (mysqli_query($conn, $sql)) {
                     echo "<script>
-                        alert('Thêm sản phẩm thành công');
-                        window.location.href = 'admin.php';
-                    </script>";
+                            alert('Chỉnh sửa thành công');
+                            window.location.href = 'admin.php';
+                        </script>";
                 }
             }
         } else {
-            $MSHH = randomId(5);
-            $sql = "INSERT INTO `hanghoa`
-                (`MSHH`, `TenHH`, `QuyCach`, `Gia`, `GiaCu`, `SoLuongHang`, `MaLoaiHang`, `anh`) 
-                VALUES 
-                ('$MSHH','$tenhanghoa','$quycach','$giamoi','$giacu','$soluonghang  ','$maloaihang','$target_file')";
+            $sql = "UPDATE `hanghoa` SET 
+            `MSHH` = '$mshh',
+            `TenHH`='$tenhanghoa',
+            `QuyCach`='$quycach',
+            `Gia`='$giamoi',
+            `GiaCu`='$giacu',
+            `SoLuongHang`='$soluonghang',
+            `MaLoaiHang`='$maloaihang',
+            `anh`='$file_name',
+            `type`='$trangthai' WHERE MSHH='$mshh'";
             if (mysqli_query($conn, $sql)) {
                 echo "<script>
-                        alert('Thêm sản phẩm thành công');
-                        window.location.href = 'admin.php';
-                    </script>";
+                            alert('Chỉnh sửa thành công');
+                            window.location.href = 'admin.php';
+                        </script>";
             }
         }
     }
 }
 
-// Xoa 1 san pham
-$onremove = isset($_GET['remove']) ? $_GET['remove'] : false;
-$mshh = isset($_GET['mshh']) ? $_GET['mshh'] : "false";
-if ($onremove == true) {
-    if (mysqli_query($conn, "DELETE FROM `hanghoa` WHERE MSHH='$mshh'")) {
-        echo "<script>
-                        alert('Xóa sản phẩm thành công');
-                        window.location.href = 'admin.php';
-                    </script>";
-    }
-}
+
 ?>
 
 <body>
@@ -197,81 +300,157 @@ if ($onremove == true) {
                 </div>
                 <div class="content__body">
                     <div class="content__body-box content__body-dashboard content__body-order" id='dashboard'>
-
-                        <div class="dashboard__heading">
-
-                            <h1 class="order__title">Danh Sách Hàng Hóa</h1>
-                            <button href="" class="dashboard__heading-btn" data-toggle="modal" data-target="#themhanghoa">Thêm Hàng Hóa</button>
-
-                        </div>
-                        <div class="customer__table order__table">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th class="order__tabel-id" style="width: 160px;">MSHH</th>
-                                        <th class="order__tabel-name" style="width: 300px;">Tên Hàng Hóa</th>
-                                        <th class="order__tabel-n-price" style="width: 150px;">Giá Mới</th>
-                                        <th class="order__tabel-o-rice" style="width: 150px;">Giá Cũ</th>
-                                        <th class="order__tabel-quantity" style="width: 150px;">Số Lượng</th>
-                                        <th class="order__tabel-mlh" style="width: 150px;">Mã Loại Hàng</th>
-                                        <th class="order__tabel-image" style="width: 280px;text-align: center;">Ảnh</th>
-                                        <th class="order__tabel-type" style="width: 180px;">Loại</th>
-                                        <th class="order__tabel-edit" style="width: 100px;text-align: center;"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $sql = "SELECT * FROM `hanghoa` WHERE 1";
-                                    $query = mysqli_query($conn, $sql);
-                                    while ($hanghoa = mysqli_fetch_array($query)) {
-                                    ?>
+                        <?php
+                        $onedit = isset($_GET['onedit']) ? $_GET['onedit'] : false;
+                        if ($onedit == false) {
+                        ?>
+                            <div class="dashboard__heading">
+                                <h1 class="order__title">Danh Sách Hàng Hóa</h1>
+                                <a href="admin.php?onedit=1" class="dashboard__heading-btn" data-toggle="modal" data-target="#themhanghoa">Thêm Hàng Hóa</a>
+                            </div>
+                            <div class="customer__table order__table">
+                                <table>
+                                    <thead>
                                         <tr>
-                                            <td class="order__tabel-id" style="width: 160px;"><?php echo $hanghoa['MSHH'] ?></td>
-                                            <td class="order__tabel-name" style="width: 300px;"><?php echo $hanghoa['TenHH'] ?></td>
-                                            <td class="order__tabel-n-price" style="width: 150px;"><?php echo number_format($hanghoa['Gia'], 0, ',', '.') ?>đ</td>
-                                            <td class="order__tabel-0-price" style="width: 150px;"><?php echo isset($hanghoa['GiaCu']) ? number_format($hanghoa['GiaCu'], 0, ',', '.') : "" ?>đ</td>
-                                            <td class="order__tabel-quantity" style="width: 150px;"><?php echo $hanghoa['SoLuongHang'] ?></td>
-                                            <td class="order__tabel-mlh" style="width: 150px;"><?php echo $hanghoa['MaLoaiHang'] ?></td>
-                                            <td class="order__tabel-image" style="width: 280px;text-align: center;">
-                                                <img src="assets/img/<?php echo $hanghoa['anh'] ?>" alt="" style="width: 80px;height:80px;object-fit: cover;">
-                                            </td>
-                                            <td class="order__tabel-type" style="width: 180px;">
-                                                <?php $type = $hanghoa['type'];
-                                                switch ($type) {
-                                                    case '1':
-                                                        echo "Bán chạy";
-                                                        break;
-                                                    case '2':
-                                                        echo "Mới về";
-                                                        break;
-                                                    case '3':
-                                                        echo "Xem nhiều";
-                                                        break;
-                                                    default:
-                                                        # code...
-                                                        break;
-                                                } ?></td>
-                                            <td class="order__tabel-edit" style="width: 100px;text-align: center;">
-                                                <div class="dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fas fa-ellipsis-h"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                        <?php
-                                                        ?>
-                                                        <li><a class="dropdown-item" href="admin.php?onedit=true&mshh=<?php echo $hanghoa["MSHH"]; ?>" style="font-size: 14px;">Chỉnh sửa sản phẩm</a></li>
-                                                        <?php
-                                                        ?>
-                                                        <li><a class="dropdown-item" href="admin.php?remove=true&mshh=<?php echo $hanghoa["MSHH"]; ?>" style="font-size: 14px;">Xóa sản phẩm</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-
+                                            <th class="order__table-id" style="width: 160px;padding-left:25px;">MSHH</th>
+                                            <th class="order__table-name" style="width: 300px;">Tên Hàng Hóa</th>
+                                            <th class="order__table-n-price" style="width: 150px;">Giá Mới</th>
+                                            <th class="order__table-o-rice" style="width: 150px;">Giá Cũ</th>
+                                            <th class="order__table-quantity" style="width: 150px;">Số Lượng</th>
+                                            <th class="order__table-mlh" style="width: 150px;">Mã Loại Hàng</th>
+                                            <th class="order__table-image" style="width: 280px;text-align: center;">Ảnh</th>
+                                            <th class="order__table-type" style="width: 180px;">Loại</th>
+                                            <th class="order__table-edit" style="width: 100px;text-align: center;"></th>
                                         </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $sql = "SELECT * FROM `hanghoa` WHERE 1";
+                                        $query = mysqli_query($conn, $sql);
+                                        while ($hanghoa = mysqli_fetch_array($query)) {
+                                        ?>
+                                            <tr>
+                                                <td class="order__tabel-id" style="width: 160px;"><?php echo $hanghoa['MSHH'] ?></td>
+                                                <td class="order__tabel-name" style="width: 300px;"><?php echo $hanghoa['TenHH'] ?></td>
+                                                <td class="order__tabel-n-price" style="width: 150px;"><?php echo number_format($hanghoa['Gia'], 0, ',', '.') ?>đ</td>
+                                                <td class="order__tabel-0-price" style="width: 150px;"><?php echo isset($hanghoa['GiaCu']) ? number_format($hanghoa['GiaCu'], 0, ',', '.') : "" ?>đ</td>
+                                                <td class="order__tabel-quantity" style="width: 150px;"><?php echo $hanghoa['SoLuongHang'] ?></td>
+                                                <td class="order__tabel-mlh" style="width: 150px;"><?php echo $hanghoa['MaLoaiHang'] ?></td>
+                                                <td class="order__tabel-image" style="width: 280px;text-align: center;">
+                                                    <img src="assets/img/<?php echo $hanghoa['anh'] ?>" alt="" style="width: 80px;height:80px;object-fit: cover;">
+                                                </td>
+                                                <td class="order__tabel-type" style="width: 180px;">
+                                                    <?php $type = $hanghoa['type'];
+                                                    switch ($type) {
+                                                        case '1':
+                                                            echo "Bán chạy";
+                                                            break;
+                                                        case '2':
+                                                            echo "Mới về";
+                                                            break;
+                                                        case '3':
+                                                            echo "Xem nhiều";
+                                                            break;
+                                                        default:
+                                                            # code...
+                                                            break;
+                                                    } ?></td>
+                                                <td class="order__tabel-edit" style="width: 100px;text-align: center;">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary" style="background-color:transparent;border:none;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fas fa-ellipsis-h" style="font-size: 16px;color:black;"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                            <li><a class="dropdown-item" href="admin.php?onedit=true&mshh=<?php echo $hanghoa["MSHH"]; ?>" style="font-size: 14px;">Chỉnh sửa sản phẩm</a></li>
+                                                            <a class="dropdown-item" href="admin.php?remove=true&mshh=<?php echo $hanghoa['MSHH']; ?>" style="font-size: 14px;">Xóa sản phẩm này</a>
+
+                                                        </ul>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <?php } else {
+                            $mshh = isset($_GET['mshh']) ? $_GET['mshh'] : "";
+                            $sql = "SELECT `MSHH`, `TenHH`, `QuyCach`, `Gia`, `GiaCu`, `SoLuongHang`, `MaLoaiHang`, `GhiChu`, `anh`, `type` FROM `hanghoa` WHERE MSHH='$mshh'";
+                            $query = mysqli_query($conn, $sql);
+                            if ($row = mysqli_fetch_array($query)) {
+                            ?>
+                                <div class="dashboard__heading">
+                                    <h1 class="order__title">Chỉnh Sửa Hàng Hóa</h1>
+                                </div>
+                                <form action="admin.php" method="POST" class='addproduct__form' enctype="multipart/form-data">
+                                    <div class="form__group">
+                                        <label for="MSHH">Mã Số Hàng Hóa</label>
+                                        <input type="text" id='MSHH' name='MSHH' value="<?php echo $row['MSHH'] ?>">
+                                    </div>
+                                    <div class="form__group">
+                                        <label for="tenhanghoa">Tên Hàng Hóa</label>
+                                        <input type="text" id='tenhanghoa' name='tenhanghoa' value="<?php echo $row['TenHH'] ?>">
+                                    </div>
+                                    <div class="form__group">
+                                        <label for="quycach">Quỷ Cách</label>
+                                        <input type="text" id='quycach' name='quycach' value="<?php echo $row['QuyCach'] ?>">
+                                    </div>
+                                    <div class="form__group">
+                                        <label for="giacu">Giá Cũ</label>
+                                        <input type="number" id='giacu' name='giacu' value="<?php echo $row['GiaCu'] ?>">
+                                    </div>
+                                    <div class="form__group">
+                                        <label for="giamoi">Giá Mới</label>
+                                        <input type="number" id='giamoi' name='giamoi' value="<?php echo $row['Gia'] ?>">
+                                    </div>
+                                    <div class="form__group">
+                                        <label for="soluonghang">Số Lượng Hàng</label>
+                                        <input type="number" id='soluonghang' name='soluonghang' value="<?php echo $row['SoLuongHang'] ?>">
+                                    </div>
+                                    <div class="form__group">
+                                        <label for="maloaihang">Loại Hàng Hóa</label>
+                                        <select name="maloaihang" id="maloaihang">
+                                            <option value="TC" <?php if ($row['MaLoaiHang'] == 'TC') echo ("selected") ?>>
+                                                Trái Cây
+                                            </option>
+                                            <option value="R" <?php if ($row['MaLoaiHang'] == "R") echo ("selected") ?>>
+                                                Rau
+                                            </option>
+                                            <option value="NE" <?php if ($row['MaLoaiHang'] == "NE") echo ("selected") ?>>
+                                                Nước Ép
+                                            </option>
+                                            <option value="T" <?php if ($row['MaLoaiHang'] == "T") echo ("selected") ?>>
+                                                Trà
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form__group">
+                                        <label for="trangthai">Trạng Thái </label>
+                                        <select name="trangthai" id="trangthai">
+                                            <option value="1" selected ?>
+                                                Bán Chạy
+                                            </option>
+                                            <option value="2">
+                                                Mới Về
+                                            </option>
+                                            <option value="3">
+                                                Xem Nhiều
+                                            </option>
+                                        </select>
+
+                                    </div>
+                                    <div class="form__group">
+                                        <label for="anh">Ảnh</label>
+                                        <input type="file" id='anh' name='anh'">
+                                    </div>
+                                    <div class="" style=" float:right;">
+                                        <a type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 100px;height:35px;font-size: 14px;margin-right: 5px;">Hủy</a>
+                                        <button href="addmin.php" type="submit" class="btn btn-primary" name='updateproduct' style="width: 100px;height:35px;font-size: 14px;">Lưu</button>
+                                    </div>
+                                </form>
+                        <?php }
+                        } ?>
+
                     </div>
                     <div class="content__body-box content__body-order" id='order'>
                         <h1 class="order__title">Danh Sách Các Đơn Hàng</h1>
@@ -420,7 +599,7 @@ if ($onremove == true) {
                                                     ?></p>
                                             </td>
                                             <td class="order__tabel-amount">
-                                                <p><?php echo isset($donhang['amount']) ? $donhang['amount'] : 0;
+                                                <p><?php echo isset($donhang['amount']) ? number_format($donhang['amount'], 0, ',', '.') : 0;
                                                     ?>đ</p>
                                             </td>
                                             <td class="order__tabel-edit" style="width: 100px;text-align: center;">
@@ -444,17 +623,8 @@ if ($onremove == true) {
         <div class="modal-dialog" role="document">
             <div class="modal-content addproduct__heading">
                 <div class="modal-header">
-                    <?php
-                    $onedit = isset($_GET['onedit']) ? $_GET['onedit'] : false;
-                    ?>
-                    <h5 class="modal-title" id="exampleModalLabel">
-                        <?php
-                        if ($onedit == false) {
-                            echo "Thêm Hàng Hóa";
-                        }else{
-                            echo "Chỉnh sửa Hàng Hóa";
-                        }
-                        ?>
+                    <h5>
+                        Thêm Hàng Hóa
                     </h5>
                     <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
                     </button>
@@ -463,7 +633,7 @@ if ($onremove == true) {
                     <form action="admin.php" method="POST" class='addproduct__form' enctype="multipart/form-data">
                         <div class="form__group">
                             <label for="tenhanghoa">Tên Hàng Hóa</label>
-                            <input type="text" id='tenhanghoa' name='tenhanghoa'>
+                            <input type="text" id='tenhanghoa' name='tenhanghoa' required>
                         </div>
                         <div class="form__group">
                             <label for="quycach">Quỷ Cách</label>
@@ -471,19 +641,19 @@ if ($onremove == true) {
                         </div>
                         <div class="form__group">
                             <label for="giacu">Giá Cũ</label>
-                            <input type="number" id='giacu' name='giacu'>
+                            <input type="number" id='giacu' name='giacu' required>
                         </div>
                         <div class="form__group">
                             <label for="giamoi">Giá Mới</label>
-                            <input type="number" id='giamoi' name='giamoi'>
+                            <input type="number" id='giamoi' name='giamoi' required>
                         </div>
                         <div class="form__group">
                             <label for="soluonghang">Số Lượng Hàng</label>
-                            <input type="number" id='soluonghang' name='soluonghang'>
+                            <input type="number" id='soluonghang' name='soluonghang' required>
                         </div>
                         <div class="form__group">
                             <label for="maloaihang">Loại Hàng Hóa</label>
-                            <select name="maloaihang" id="maloaihang">
+                            <select name="maloaihang" id="maloaihang" required>
                                 <option value="TC">
                                     Trái Cây
                                 </option>
@@ -500,7 +670,7 @@ if ($onremove == true) {
                         </div>
                         <div class="form__group">
                             <label for="anh">Ảnh</label>
-                            <input type="file" id='anh' name='anh'>
+                            <input type="file" id='anh' name='anh' required>
                         </div>
                         <div class="" style="float:right;">
                             <a type="button" class="btn btn-secondary" data-dismiss="modal" style="width: 100px;height:35px;font-size: 14px;margin-right: 5px;">Hủy</a>
@@ -511,6 +681,7 @@ if ($onremove == true) {
             </div>
         </div>
     </div>
+
 </body>
 <!-- Jquery -->
 <script src="assets/script/vendor/jquery.min.js"></script>
