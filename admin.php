@@ -33,11 +33,52 @@ if (!$isAdmin) {
 $trangthai = isset($_GET['trangthai']) ? $_GET['trangthai'] : null;
 $sodondh = isset($_GET['sodondh']) ? $_GET['sodondh'] : null;
 if (isset($trangthai) and isset($sodondh)) {
-    if (mysqli_query($conn, "UPDATE `chitietdathang` SET `TrangThai`='$trangthai' WHERE SoDonDH='$sodondh' ")) {
-        echo "<script> 
+    $so_luong = 0;
+    $so_luong_trong_kho = 0;
+    $so_luong_hien_tai  = 0;
+    $mshh = "";
+    $trang_thai_don_hang = 1;
+
+    if ($chitietdonhang = mysqli_fetch_array(mysqli_query($conn, "SELECT MSHH,SoLuong,TrangThai FROM chitietdathang WHERE SoDonDH='$sodondh'"))) {
+        $so_luong = $chitietdonhang['SoLuong'];
+        $mshh = $chitietdonhang['MSHH'];
+        $trang_thai_don_hang = $chitietdonhang['TrangThai'];
+    }
+    // Lay so luong hien tai cua don hang
+    if ($hanghoa = mysqli_fetch_array(mysqli_query($conn, "SELECT SoLuongHang FROM hanghoa WHERE MSHH='$mshh'"))) {
+        $so_luong_trong_kho = $hanghoa['SoLuongHang'];
+    }
+    // 1 pendding, 2 delivered, 3 cancel
+    // pendding -> cancel
+    // pendding -> delivered
+    // delivered -> cancel
+    // cancel -> deliverd
+
+    if ($trang_thai_don_hang == 1) {
+        if ($trangthai == 2) {
+            $so_luong_hien_tai = $so_luong_trong_kho - $so_luong;
+        } else {
+            $so_luong_hien_tai = $so_luong_trong_kho;
+        }
+    } else {
+        if ($trang_thai_don_hang == 2 and $trangthai == 3) {
+            $so_luong_hien_tai = $so_luong_trong_kho + $so_luong;
+        } else {
+            $so_luong_hien_tai = $so_luong_trong_kho - $so_luong;
+        }
+    }
+
+    if($trang_thai_don_hang != $trangthai){
+        if (
+            mysqli_query($conn, "UPDATE `chitietdathang` SET `TrangThai`='$trangthai' WHERE SoDonDH='$sodondh'")
+            and
+            mysqli_query($conn, "UPDATE `hanghoa` SET `SoLuongHang`='$so_luong_hien_tai' WHERE MSHH='$mshh'")
+        ) {
+            echo "<script> 
                 alert('Cập nhật thành công');
                 window.location.href='/shop/admin.php';
             </script>";
+        }
     }
 }
 // Tao chuoi string ngau nhien
@@ -281,11 +322,11 @@ if (isset($_POST['updateproduct'])) {
                         <div class="control__group">
                             <div class="control__group-notify">
                                 <i class="far fa-bell"></i>
-                                <span>4</span>
+                                <span>0</span>
                             </div>
                             <div class="control__group-message">
                                 <i class="far fa-comment-alt"></i>
-                                <span>21</span>
+                                <span>0</span>
                             </div>
                         </div>
                         <div class="control__info">

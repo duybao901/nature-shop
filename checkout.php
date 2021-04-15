@@ -36,6 +36,7 @@ $MSKH = isset($_SESSION['MSKH']) ? $_SESSION['MSKH'] : '';
 if ($user = mysqli_fetch_array(mysqli_query($conn, "SELECT Email FROM khachhang WHERE MSKH='$MSKH'"))) {
     $user_email = $user['Email'];
 }
+// Sinh ra 1 chuoi ngau nhien 
 function randomId($n)
 {
     $characters = '0123456789abcxyz';
@@ -47,6 +48,7 @@ function randomId($n)
     }
     return $randomString;
 }
+// Thanh toan don hang
 if (isset($_POST['submit'])) {
     if (isset($_SESSION['islogin'])) {
         if (isset($_SESSION['carts'])) {
